@@ -156,7 +156,7 @@ function Navbar() {
             </IconButton>
           ) : null}
           <IconButton
-            className="md:hidden cursor-pointer"
+            className="block md:hidden cursor-pointer"
             onClick={() => OpenMenu()}
           >
             <Menu />
