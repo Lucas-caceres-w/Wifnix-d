@@ -1,0 +1,124 @@
+@media screen and (max-width: 1080px) {
+  .formulario-login {
+    margin: 45% auto;
+    width: 90%;
+  }
+  .admin {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .formulario {
+    width: 60%;
+  }
+  .products {
+    margin: auto;
+    width: 90%;
+  }
+  .links-categories {
+    width: 100%;
+    justify-content: space-around;
+  }
+  .search {
+    padding: 10px 0px 10px 50px;
+  }
+  .menu-conteiner {
+    gap: 20px;
+  }
+  .conteiner-trending {
+    justify-content: space-around;
+  }
+  .product-trending {
+    margin: 0;
+  }
+}
+@media screen and (max-width: 768px) {
+  .formulario-login {
+    margin: 50px auto;
+  }
+
+  .swiper-button-prev {
+    left: 30% !important;
+  }
+  .navbar {
+    justify-content: space-around;
+    flex-wrap: nowrap;
+  }
+  .search-conteiner {
+    display: flex;
+    justify-content: center;
+  }
+  .categories {
+    display: none;
+  }
+  .menu-conteiner {
+    display: none;
+  }
+  .search {
+    width: 80%;
+    padding: 10px 0px 10px 50px;
+  }
+  .hidden {
+    display: block;
+  }
+  .conteiner-testimonios,
+  .slider {
+    overflow: hidden;
+  }
+  .hero-text {
+    width: 70%;
+    margin: auto;
+  }
+}
+
+@media screen and (max-width: 730px) {
+  .formulario {
+    width: 80%;
+  }
+  .card-test {
+    width: 90%;
+    padding-bottom: 20px;
+    height: -webkit-max-content;
+    height: -moz-max-content;
+    height: max-content;
+  }
+  .testimonio p {
+    font-size: 12px;
+  }
+  .comentario {
+    margin-top: 5px;
+    gap: 5px;
+  }
+}
+@media screen and (max-width: 560px) {
+  .profile-conteiner {
+    gap: 5px;
+  }
+  .shape-blue {
+    width: 70vw;
+    height: 70vw;
+  }
+  .shape-yellow {
+    left: calc(30px + 6vw);
+    top: 60px;
+  }
+  .hero-text {
+    width: 90%;
+    margin: auto;
+  }
+}
+
+@media screen and (max-width: 450px) {
+  .formulario {
+    width: 100%;
+    margin: 20px 10px !important;
+    padding: 0;
+  }
+  .search {
+    padding: 10px 0px 10px 10px;
+  }
+  .trending , .ofertas {
+    flex-wrap: wrap;
+    width: 95% !important;
+    gap: 5px !important;
+  }
+}
