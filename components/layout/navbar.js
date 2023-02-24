@@ -45,7 +45,7 @@ function Navbar() {
         const res = await axios.get("/api/users");
         const json = await res.data;
         if (res.status === 200) {
-          console.log(json);
+          //console.log(json);
           setUser(json);
         } else {
           setUser(null);
