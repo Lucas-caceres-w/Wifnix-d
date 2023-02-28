@@ -16,6 +16,9 @@ function MuestraProducts() {
     <article className="grid grid-cols-3 gap-2 sm:grid-cols-5 justify-around justify-items-center py-4 m-auto">
       {product ? (
         product.slice(0, 5).map((e) => {
+          const image64 = e.images.map((e, index) => {
+            return <img className="w-full" src={e} key={index} />;
+          });
           return (
             <ProducTrend
               key={e.id}
@@ -23,6 +26,7 @@ function MuestraProducts() {
               title={e.product}
               price={e.price}
               stock={e.quantity}
+              image={image64}
             />
           );
         })

@@ -4,6 +4,7 @@ import Packs from "./oferts-kits";
 import SocialMedia from "../layout/socialmedia";
 import Footer from "../layout/footer";
 import MuestraProducts from "../layout/getproduct";
+import { Skeleton } from "@mui/material";
 
 function ProductId(props) {
   const [cantidad, setCantidad] = useState(1);
@@ -12,13 +13,14 @@ function ProductId(props) {
     setCantidad(e.target.value);
   };
 
+  let images = props.image;
   return (
     <>
       <section className="py-12 flex flex-col lg:flex-row justify-evenly">
         <article className="w-6/12 flex flex-col items-center m-auto">
           <div className="text-left">
             <h2 className="text-5xl font-bold">
-              {props.product && props.product}
+              {props.product ? props.product : <Skeleton className="w-full h-24 "/>}
             </h2>
             <div className="flex flex-row my-2 gap-3">
               <div>⭐⭐⭐⭐</div>
@@ -28,7 +30,18 @@ function ProductId(props) {
               </p>
             </div>
           </div>
-          <img className="w-full" src="/assets/kit.png" />
+          {props.image ? (
+            <img src={images[0]} />
+          ) : (
+            <div className="w-full">
+              <Skeleton className="w-10/12 m-auto h-[450px]"/>
+            </div>
+          )}
+          <div className="flex flex-row w-2/12 m-auto">
+            {images?.map((image, index) => (
+              <img src={image} key={index} />
+            ))}
+          </div>
         </article>
         <div className="w-5/12">
           <div className="text-left mt-24">
@@ -39,7 +52,7 @@ function ProductId(props) {
               </sup>
             </p>
             <p className="text-5xl font-extrabold flex flex-row ">
-              US${props.price && props.price}
+              US${props.price ? props.price : <Skeleton className="w-24 h-24"/>}
               <sup className="text-3xl">99</sup>
             </p>
             <p className="text-sm text-blue-500 font-medium">TOP SELLER</p>
@@ -113,7 +126,9 @@ function ProductId(props) {
       <span className="separador"></span>
       <Packs />
       <span className="separador"></span>
-      <h2 className="title-section text-3xl md:text-5xl py-2">Productos recomendados</h2>
+      <h2 className="title-section text-3xl md:text-5xl py-2">
+        Productos recomendados
+      </h2>
       <MuestraProducts />
       <span className="separador"></span>
       <h2 className="title-section text-3xl md:text-5xl py-2">Comparar</h2>

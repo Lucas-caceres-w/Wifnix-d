@@ -28,7 +28,11 @@ function ProductCart() {
     GetProduct();
   }, [router.query.id]);
 
-  //console.log(product);
+  console.log(product);
+
+  const imagen = product?.images?.map((e, index) => {
+    return e;
+  });
 
   return (
     <div>
@@ -43,6 +47,7 @@ function ProductCart() {
         product={product && product.product}
         price={product && product.price}
         quantity={product && product.quantity}
+        image={imagen}
       />
     </div>
   );

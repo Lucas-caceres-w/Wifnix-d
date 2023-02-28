@@ -1,4 +1,4 @@
-import { Delete, Edit, PublishOutlined } from "@mui/icons-material";
+import { PublishOutlined } from "@mui/icons-material";
 import {
   Alert,
   Button,
@@ -6,11 +6,11 @@ import {
   InputLabel,
   MenuItem,
   Select,
-  Skeleton,
   Snackbar,
   TextField,
 } from "@mui/material";
-import axios from 'axios'
+import Inventario from "./inventario";
+import axios from "axios";
 import React, { useEffect, useRef, useState } from "react";
 import { Productos } from "../helpers/get-database";
 
@@ -23,6 +23,7 @@ function Form() {
     price: "",
     quantity: "",
     category: "",
+    images: [],
   };
 
   const [put, setPut] = useState(false);
@@ -34,6 +35,26 @@ function Form() {
   const [select, setSelect] = useState("");
   const [update, setUpdate] = useState(InicialState);
   const [product, setProduct] = useState(InicialState);
+
+  const FilesUp = (e) => {
+    const imagesArray = [];
+    Array.from(e).forEach((e) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(e);
+      reader.onload = function () {
+        const base64 = reader.result;
+        imagesArray.push(base64);
+        setProduct((prevProduct) => ({
+          ...prevProduct,
+          images: imagesArray,
+        }));
+        setUpdate((prevUpdate) => ({
+          ...prevUpdate,
+          images: imagesArray,
+        }));
+      };
+    });
+  };
 
   const ShowProducts = async () => {
     try {
@@ -60,7 +81,7 @@ function Form() {
     e.preventDefault();
     try {
       const res = await axios.post("/api/database", product);
-      //console.log(res);
+      console.log(res);
       if (res.status === 200) {
         ShowProducts();
         setSuccess(true);
@@ -137,6 +158,7 @@ function Form() {
       }
     } catch (err) {
       setError(true);
+      console.log(err);
       setTimeout(() => {
         setError(false);
       }, 2000);
@@ -147,199 +169,6 @@ function Form() {
   useEffect(() => {
     ShowProducts();
   }, []);
-
-  //Productos que se encuentran en la base de datos.
-  const Inventario = () => {
-    return dataBase ? (
-      <tbody className="w-full bg-gray-200">
-        {dataBase?.map((e) => {
-          let detalles = e.details.split(",").map((e, index) => {
-            return (
-              <li key={index} className="text-md font-medium list-disc">
-                {e.trim()}
-              </li>
-            );
-          });
-          return (
-            <tr
-              key={e.id}
-              className="border border-slate-400 text-left w-full text-slate-800 font-semibold text-xs"
-            >
-              <td className="border border-slate-400 rounded p-2 text-left w-full text-slate-800 font-semibold text-xs">
-                {e.product}
-              </td>
-              <td className="border border-slate-400 p-2 text-left w-full text-slate-800 font-semibold text-xs">
-                {e.id}
-              </td>
-              <td className="border border-slate-400 p-2 text-left w-full text-slate-800 font-semibold text-xs">
-                {e.price} $
-              </td>
-              <td className="border border-slate-400 p-2 text-left w-full text-slate-800 font-semibold text-xs">
-                {e.quantity}
-              </td>
-              <td className="border border-slate-400 text-left w-full text-slate-800 font-semibold text-xs">
-                <ul className="pl-5">{detalles}</ul>
-              </td>
-              <td className="border border-slate-400 p-2 text-left w-full text-slate-800 font-semibold text-xs">
-                {e.category}
-              </td>
-              <td className="border border-slate-400 p-2 text-left w-full text-slate-800 font-semibold text-xs">
-                {e.images.ejemplo}
-              </td>
-              <td className="flex flex-col gap-1">
-                <Button
-                  className="bg-blue-500"
-                  startIcon={<Edit />}
-                  onClick={() => UpdateProduct(e.id)}
-                  variant="contained"
-                >
-                  Editar
-                </Button>
-                <Button
-                  className="bg-red-500"
-                  startIcon={<Delete />}
-                  variant="contained"
-                  color="error"
-                  onClick={() => DeleteProduct(e.id)}
-                >
-                  Eliminar
-                </Button>
-              </td>
-            </tr>
-          );
-        })}
-      </tbody>
-    ) : (
-      <tbody className="w-full bg-gray-200">
-        <tr className="flex flex-row gap-2 justify-between">
-          <td>
-            <Skeleton width={"100px"} height={"20px"} />
-          </td>
-          <td>
-            <Skeleton width={"100px"} height={"20px"} />
-          </td>
-          <td>
-            <Skeleton width={"100px"} height={"20px"} />
-          </td>
-          <td>
-            <Skeleton width={"100px"} height={"20px"} />
-          </td>
-          <td>
-            <Skeleton width={"100px"} height={"20px"} />
-          </td>
-          <td>
-            <Skeleton width={"50px"} height={"15px"} />
-            <Skeleton width={"50px"} height={"15px"} />
-          </td>
-        </tr>
-        <tr className="flex flex-row gap-2 justify-between">
-          <td>
-            <Skeleton width={"100px"} height={"20px"} />
-          </td>
-          <td>
-            <Skeleton width={"100px"} height={"20px"} />
-          </td>
-          <td>
-            <Skeleton width={"100px"} height={"20px"} />
-          </td>
-          <td>
-            <Skeleton width={"100px"} height={"20px"} />
-          </td>
-          <td>
-            <Skeleton width={"100px"} height={"20px"} />
-          </td>
-          <td>
-            <Skeleton width={"50px"} height={"15px"} />
-            <Skeleton width={"50px"} height={"15px"} />
-          </td>
-        </tr>
-        <tr className="flex flex-row gap-2 justify-between">
-          <td>
-            <Skeleton width={"100px"} height={"20px"} />
-          </td>
-          <td>
-            <Skeleton width={"100px"} height={"20px"} />
-          </td>
-          <td>
-            <Skeleton width={"100px"} height={"20px"} />
-          </td>
-          <td>
-            <Skeleton width={"100px"} height={"20px"} />
-          </td>
-          <td>
-            <Skeleton width={"100px"} height={"20px"} />
-          </td>
-          <td>
-            <Skeleton width={"50px"} height={"15px"} />
-            <Skeleton width={"50px"} height={"15px"} />
-          </td>
-        </tr>
-        <tr className="flex flex-row gap-2 justify-between">
-          <td>
-            <Skeleton width={"100px"} height={"20px"} />
-          </td>
-          <td>
-            <Skeleton width={"100px"} height={"20px"} />
-          </td>
-          <td>
-            <Skeleton width={"100px"} height={"20px"} />
-          </td>
-          <td>
-            <Skeleton width={"100px"} height={"20px"} />
-          </td>
-          <td>
-            <Skeleton width={"100px"} height={"20px"} />
-          </td>
-          <td>
-            <Skeleton width={"50px"} height={"15px"} />
-            <Skeleton width={"50px"} height={"15px"} />
-          </td>
-        </tr>
-        <tr className="flex flex-row gap-2 justify-between">
-          <td>
-            <Skeleton width={"100px"} height={"20px"} />
-          </td>
-          <td>
-            <Skeleton width={"100px"} height={"20px"} />
-          </td>
-          <td>
-            <Skeleton width={"100px"} height={"20px"} />
-          </td>
-          <td>
-            <Skeleton width={"100px"} height={"20px"} />
-          </td>
-          <td>
-            <Skeleton width={"100px"} height={"20px"} />
-          </td>
-          <td>
-            <Skeleton width={"50px"} height={"15px"} />
-            <Skeleton width={"50px"} height={"15px"} />
-          </td>
-        </tr>
-        <tr className="flex flex-row gap-2 justify-between">
-          <td>
-            <Skeleton width={"100px"} height={"20px"} />
-          </td>
-          <td>
-            <Skeleton width={"100px"} height={"20px"} />
-          </td>
-          <td>
-            <Skeleton width={"100px"} height={"20px"} />
-          </td>
-          <td>
-            <Skeleton width={"100px"} height={"20px"} />
-          </td>
-          <td>
-            <Skeleton width={"100px"} height={"20px"} />
-          </td>
-          <td>
-            <Skeleton width={"50px"} height={"15px"} />
-            <Skeleton width={"50px"} height={"15px"} />
-          </td>
-        </tr>
-      </tbody>
-    );
-  };
 
   return (
     <section className="flex flex-col xl:flex-row gap-4 items-start w-11/12 m-auto">
@@ -444,6 +273,15 @@ function Form() {
                 value={product.quantity}
               />
             </div>
+            <div className="w-full">
+              <input
+                className="w-full"
+                name="images"
+                onChange={(e) => FilesUp(e.target.files)}
+                type={"file"}
+                multiple
+              />
+            </div>
             <FormControl sx={{ m: 1, minWidth: 80 }}>
               <InputLabel id="select">Category</InputLabel>
               <Select
@@ -458,6 +296,7 @@ function Form() {
                 <MenuItem value="Camera">Camera</MenuItem>
                 <MenuItem value="Security Kit">Security Kit</MenuItem>
                 <MenuItem value="Connectors">Connectors</MenuItem>
+                <MenuItem value="Recorders">Recorders</MenuItem>
               </Select>
             </FormControl>
             <div className="relative m-auto">
@@ -483,7 +322,7 @@ function Form() {
           </Alert>
         )}
       </div>
-      <article className="scrollbar w-full xl:w-3/4 h-120 overflow-y-scroll bg-gray-200 rounded shadow-md shadow-slate-500">
+      <article className="scrollbar w-full xl:w-3/4 h-96 overflow-y-scroll bg-gray-200 rounded shadow-md shadow-slate-500">
         <table className="rounded w-full table table-auto lg:table-fixed border-collapse border border-slate-500">
           <thead className="w-full bg-slate-400">
             <tr className="">
@@ -513,7 +352,11 @@ function Form() {
               </th>
             </tr>
           </thead>
-          <Inventario />
+          <Inventario
+            UpdateProduct={UpdateProduct}
+            DeleteProduct={DeleteProduct}
+            dataBase={dataBase}
+          />
         </table>
       </article>
     </section>

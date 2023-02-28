@@ -5,9 +5,9 @@ function CardProduct(props) {
   return (
     <div
       id={props.key}
-      className="h-max w-120 items-center p-2 card-product flex flex-col lg:flex-row justify-around rounded shadow-md shadow-slate-300"
+      className="h-56 w-[500px] items-center p-2 card-product flex flex-col lg:flex-row justify-around rounded shadow-md shadow-slate-300"
     >
-      <img className="w-48" src="/assets/IMG-1.png" />
+      {props.image && props.image[0]}
       <div className="flex flex-col justify-content-evenly w-full gap-1 text-left ml-2">
         <div className="relative">
           <h2 className="text-2xl font-semibold">{props.product}</h2>

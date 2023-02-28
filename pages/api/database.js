@@ -18,18 +18,22 @@ export default async function handler(req, res) {
 }
 
 const AddProduct = async (req, res) => {
-  const { product, details, price, quantity, category } = req.body;
-  const imgJson = { ejemplo: "ejemplo" };
-  const convertImg = JSON.stringify(imgJson);
-  const result = await pool.query("INSERT INTO products SET ?", {
-    product,
-    details,
-    price,
-    quantity,
-    category,
-    images: convertImg,
-  });
-  return res.status(200).json(result);
+  const { product, details, price, quantity, category, images } = req.body;
+  const imgJson = JSON.stringify(images);
+  try {
+    const result = await pool.query("INSERT INTO products SET ?", {
+      product,
+      details,
+      price,
+      quantity,
+      category,
+      images: imgJson,
+    });
+    return res.status(200).json(result);
+  } catch (error) {
+    //console.error(error);
+    return res.status(500).json({ message: "Error al insertar el producto" });
+  }
 };
 
 const GetProducts = async (req, res) => {
@@ -40,14 +44,25 @@ const GetProducts = async (req, res) => {
 
 const UpdateProduct = async (req, res) => {
   const { id, update } = req.body;
+  let { product, details, price, quantity, category, images } = update;
+  //console.log(update);
+  const imgJson = JSON.stringify(images);
   try {
     const [result] = await pool.query("UPDATE products SET ? WHERE id = ?", [
-      update,
+      {
+        product,
+        details,
+        price,
+        quantity,
+        category,
+        images: imgJson,
+      },
       id,
     ]);
     return res.status(200).json("Producto actualizado");
   } catch (err) {
-    console.log(err);
+    /* 
+    console.log(err); */
   }
 };
 

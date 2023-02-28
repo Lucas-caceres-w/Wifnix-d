@@ -6,7 +6,7 @@ function ProducTrend(props) {
   return (
     <div className="cursor-pointer product-trending flex flex-col justify-between w-30 sm:w-36 md:w-44 lg:w-54 xl:w-64">
       <div className="h-52 flex items-center img-product-trending">
-        <img className="w-full" src="/assets/camara.png" alt="img" />
+        {props.image && props.image[0]}
       </div>
       <div className="datos-product gap-3">
         <div>
@@ -59,7 +59,7 @@ function ProducTrend(props) {
               )}
             </p>
           </div>
-          <div className="mt-3  bg-blue-200 p-2 rounded-full hover:text-blue-400 hover:bg-white ">
+          <div className="mt-3 w-10 h-10 bg-blue-200 p-2 rounded-full hover:text-blue-400 hover:bg-white ">
             <Link href={`/tienda/${props.id}`}>
               <ShoppingCart />
             </Link>

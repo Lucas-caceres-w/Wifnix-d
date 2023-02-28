@@ -26,6 +26,10 @@ function ProductShop() {
   const Inventario = () => {
     return dataBase ? (
       dataBase?.map((e, index) => {
+        const image64 = e.images.map((e) => {
+          return <img className="w-44" src={e} key={index} />;
+        });
+
         let detalles = e.details.split(",").map((e, index) => {
           return (
             <li key={index} className="text-xs font-semibold list-disc">
@@ -41,12 +45,13 @@ function ProductShop() {
             product={e.product}
             stock={e.quantity}
             details={detalles}
+            image={image64}
           />
         );
       })
     ) : (
       <>
-        <p>error</p>
+        <p>Cargando...</p>
       </>
     );
   };
@@ -55,7 +60,7 @@ function ProductShop() {
     <>
       <div className="hero-products">
         <div className="modal-hero">
-          <h2>{categoria ? categoria : 'Cameras'}</h2>
+          <h2>{categoria ? categoria : "Cameras"}</h2>
         </div>
       </div>
       <article>
@@ -171,7 +176,7 @@ function ProductShop() {
             </div>
           </div>
         </article>
-        <main className="mt-5 m-auto grid grid-cols-1 xl:grid-cols-2 justify-center gap-3">
+        <main className="mt-5 m-auto grid grid-cols-1 xl:grid-cols-2 justify-center gap-4">
           <Inventario />
         </main>
       </section>
