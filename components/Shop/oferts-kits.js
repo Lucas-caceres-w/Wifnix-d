@@ -1,7 +1,7 @@
 function Packs() {
   return (
     <>
-      <section className="flex flex-row justify-center py-12 gap-5 items-center">
+      <section className="flex flex-row flex-wrap justify-center py-12 gap-5 items-center">
         <div>
           <p className="leading-snug text-right font-bold text-5xl w-72 color-blue">Paquetes y Ofertas</p>
         </div>

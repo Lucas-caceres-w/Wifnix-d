@@ -5,6 +5,7 @@ import SocialMedia from "../layout/socialmedia";
 import Footer from "../layout/footer";
 import MuestraProducts from "../layout/getproduct";
 import { Skeleton } from "@mui/material";
+import Link from "next/link";
 
 function ProductId(props) {
   const [cantidad, setCantidad] = useState(1);
@@ -17,10 +18,14 @@ function ProductId(props) {
   return (
     <>
       <section className="py-12 flex flex-col lg:flex-row justify-evenly">
-        <article className="w-6/12 flex flex-col items-center m-auto">
+        <article className="w-11/12 md:w-6/12 flex flex-col items-center m-auto">
           <div className="text-left">
             <h2 className="text-5xl font-bold">
-              {props.product ? props.product : <Skeleton className="w-full h-24 "/>}
+              {props.product ? (
+                props.product
+              ) : (
+                <Skeleton className="w-full h-24 " />
+              )}
             </h2>
             <div className="flex flex-row my-2 gap-3">
               <div>⭐⭐⭐⭐</div>
@@ -31,10 +36,10 @@ function ProductId(props) {
             </div>
           </div>
           {props.image ? (
-            <img src={images[0]} />
+            <img className="w-[600px]" src={images[0]} />
           ) : (
             <div className="w-full">
-              <Skeleton className="w-10/12 m-auto h-[450px]"/>
+              <Skeleton className="w-10/12 m-auto h-[450px]" />
             </div>
           )}
           <div className="flex flex-row w-2/12 m-auto">
@@ -43,7 +48,7 @@ function ProductId(props) {
             ))}
           </div>
         </article>
-        <div className="w-5/12">
+        <div className="w-11/12 md:w-5/12 m-auto">
           <div className="text-left mt-24">
             <p className="color-blue font-medium flex flex-row items-start">
               List Price: $<s>{props.price && props.price * 2 - 200}</s>
@@ -52,7 +57,8 @@ function ProductId(props) {
               </sup>
             </p>
             <p className="text-5xl font-extrabold flex flex-row ">
-              US${props.price ? props.price : <Skeleton className="w-24 h-24"/>}
+              US$
+              {props.price ? props.price : <Skeleton className="w-24 h-24" />}
               <sup className="text-3xl">99</sup>
             </p>
             <p className="text-sm text-blue-500 font-medium">TOP SELLER</p>
@@ -76,12 +82,15 @@ function ProductId(props) {
               type={"number"}
               onChange={(e) => SumarCantidad(e)}
             />
-            <button className="p-4 w-48 font-semibold text-white bg-blue-600 rounded-full">
+            <Link
+              href={"/carro"}
+              className="p-4 w-48 text-center font-semibold text-white bg-blue-600 rounded-full"
+            >
               Add to basket
-            </button>
+            </Link>
           </div>
           <article className="w-11/12 mt-8">
-            <table className="w-full table border-separate border-spacing-2">
+            <table className="w-10/12 table border-separate border-spacing-2">
               <tbody className="text-sm">
                 <tr className="">
                   <td className="w-2/4">

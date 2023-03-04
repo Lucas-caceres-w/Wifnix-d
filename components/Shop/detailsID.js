@@ -17,7 +17,7 @@ function Details() {
               Siamese cables for video and power (18 mts)
             </p>
           </div>
-          <div className="flex flex-row justify-around mt-10">
+          <div className="flex flex-row flex-wrap gap-2 justify-around mt-10">
             <div className="border p-4 border-slate-300 rounded-xl">
               <img className="w-72" src="/assets/camara.png" />
               <div className="text-center">
@@ -53,7 +53,7 @@ function Details() {
           </div>
         </article>
       </div>
-      <div className="w-2/4 border m-2 border-slate-300 rounded-xl">
+      <div className="w-3/4 md:w-2/4 border m-2 border-slate-300 rounded-xl">
         <article>
           <div className="flex flex-col text-center py-5">
             <p className="py-4 text-2xl font-bold">156 Customer rating</p>
