@@ -50,7 +50,9 @@ function CartItems() {
             </button>
           </div>
           <div className="w-96 h-48 border-4 rounded-xl border-green-400 flex flex-col justify-center items-center">
-            <LocalShipping className="text-6xl" />
+            <div className="text-center text-6xl">
+              <LocalShipping fontSize="inherit" />
+            </div>
             <p className="w-10/12 text-center text-sm">
               All items in your shopping basket are in stock and can be shipped
               inmediately

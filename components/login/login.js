@@ -205,7 +205,9 @@ function IniciarSesion() {
                 value="Continuar"
               />
               <Link href={"/help"}>
-                <p className="text-xs font-normal mt-4 text-blue-500">¿Necesitas ayuda?</p>
+                <p className="text-xs font-normal mt-4 text-blue-500">
+                  ¿Necesitas ayuda?
+                </p>
               </Link>
             </form>
           ) : (
@@ -268,7 +270,12 @@ function IniciarSesion() {
                     <br /> de Wifnix
                   </h2>
                   <div className="p-2 mt-5 border border-gray-500 w-64 rounded-full flex flex-row justify-around items-center">
-                    <AccountCircle className="text-blue-400 text-5xl" />
+                    <div className="text-4xl">
+                      <AccountCircle
+                        fontSize="inherit"
+                        className="text-blue-400"
+                      />
+                    </div>
                     <div>
                       <p className="text-xs">{userExist && userExist.email}</p>
                       <p className="text-sm text-blue-400">Cambiar cuenta</p>
@@ -346,7 +353,7 @@ function IniciarSesion() {
                   />
                   <div className="butons-login">
                     <input
-                      className="continue cursor-pointer hover:bg-blue-600 transition-colors"
+                      className="continue cursor-pointer bg-blue-400 hover:bg-blue-600 transition-colors"
                       type={"submit"}
                       value="Iniciar sesiòn"
                     />

@@ -114,12 +114,11 @@ function Navbar() {
               <Logout />
             </IconButton>
           ) : null}
-          <IconButton
-            className="block md:hidden cursor-pointer"
-            onClick={() => OpenMenu()}
-          >
-            <Menu />
-          </IconButton>
+          <div className="block md:hidden cursor-pointer">
+            <IconButton onClick={() => OpenMenu()}>
+              <Menu />
+            </IconButton>
+          </div>
         </div>
       </nav>
       <section className="categories">
