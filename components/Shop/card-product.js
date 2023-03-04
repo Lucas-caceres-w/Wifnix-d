@@ -5,9 +5,9 @@ function CardProduct(props) {
   return (
     <div
       id={props.key}
-      className="h-56 w-[500px] items-center p-2 card-product flex flex-col lg:flex-row justify-around rounded shadow-md shadow-slate-300"
+      className="h-max lg:h-56 w-full lg:w-[500px] items-center p-2 card-product flex flex-col lg:flex-row justify-around rounded shadow-md shadow-slate-300"
     >
-      {props.image && props.image[0]}
+      {props.image.length > 0 ? props.image[0] : <img className="w-6/12 h-full" src="/assets/no-available.webp" />}
       <div className="flex flex-col justify-content-evenly w-full gap-1 text-left ml-2">
         <div className="relative">
           <h2 className="text-2xl font-semibold">{props.product}</h2>
@@ -28,7 +28,7 @@ function CardProduct(props) {
               <sup className="text-xs underline font-medium">99</sup>
             </p>
             <p className="text-xs font-medium text-blue-500">TOP SELLER</p>
-            <Link href={`/tienda/${props.id}`}>
+            <Link className="bg-blue-300 p-2 rounded-full hover:bg-blue-400" href={`/tienda/${props.id}`}>
               <ShoppingCart />
             </Link>
           </div>

@@ -21,14 +21,14 @@ function ProductCart() {
         const product = await res.data;
         setProduct(product);
       } catch (err) {
-        console.log(err);
+        //console.log(err);
       }
     };
     localStorage.setItem("productId", id);
     GetProduct();
   }, [router.query.id]);
 
-  console.log(product);
+  //console.log(product);
 
   const imagen = product?.images?.map((e, index) => {
     return e;

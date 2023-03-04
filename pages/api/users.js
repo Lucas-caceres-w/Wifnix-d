@@ -43,6 +43,6 @@ const ValidateUser = async (req, res) => {
     //console.log(user);
     return res.status(200).json(user);
   } catch (err) {
-    return res.status(401).json("Invalid token");
+    return res.status(401)/* .json("Invalid token") */;
   }
 };

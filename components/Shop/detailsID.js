@@ -70,7 +70,7 @@ function Details() {
             </div>
           </div>
         </article>
-        <div className="mt-16 flex flex-col h-[600px] overflow-y-scroll">
+        <div className="ratings mt-16 flex flex-col h-[600px] overflow-y-scroll">
           <RatingUser />
           <RatingUser />
           <RatingUser />

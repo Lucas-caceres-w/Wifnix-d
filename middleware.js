@@ -15,7 +15,8 @@ export async function middleware(request) {
     //console.log(payload);
     if (!payload || payload.rol !== "admin") {
       // Verifica si el rol del usuario es 'admin'
-      return NextResponse.redirect(new URL("/", request.url)); // Si no es admin, redirige a la página principal
+      return NextResponse.redirect(new URL("/", request.url));
+      // Si no es admin, redirige a la página principal
     }
     return NextResponse.next();
   } catch (err) {

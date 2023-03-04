@@ -5,6 +5,7 @@ import Link from "next/link";
 import { IconButton } from "@mui/material";
 import { Productos } from "../helpers/get-database";
 import { useRouter } from "next/router";
+import CatShop from "./categorieShop";
 
 function ProductShop() {
   const [dataBase, setDataBase] = useState();
@@ -51,7 +52,7 @@ function ProductShop() {
       })
     ) : (
       <>
-        <p>Cargando...</p>
+        <img className="mt-12 w-24" src="/assets/oval.svg" />
       </>
     );
   };
@@ -60,25 +61,12 @@ function ProductShop() {
     <>
       <div className="hero-products">
         <div className="modal-hero">
-          <h2>{categoria ? categoria : "Cameras"}</h2>
+          <h2>{categoria ? categoria : "All"}</h2>
         </div>
       </div>
-      <article>
-        <div className="flex flex-col gap-4 pt-10">
-          <div className="flex flex-row items-center pl-8 gap-4">
-            <Link href={"/tienda"}>
-              <IconButton>
-                <HomeOutlined className="text-gray-400 text-3xl" />
-              </IconButton>
-            </Link>
-            <ul className="flex flex-row h-min flex-wrap gap-3 list-categories">
-              <li className="px-5 w-28 text-center py-2">All Categories</li>
-              <li className="px-5 w-28 text-center py-2">All Categories</li>
-              <li className="px-5 w-28 text-center py-2">All Categories</li>
-              <li className="px-5 w-28 text-center py-2">All Categories</li>
-              <li className="px-5 w-28 text-center py-2">All Categories</li>
-            </ul>
-          </div>
+      <article className="">
+        <div className="flex flex-col gap-4 pt-10 pb-2">
+          <CatShop />
           <div className="pt-10 filter-between flex flex-row justify-between">
             <p className="text-footer flex flex-row items-center">
               <Tune className="text-black text-3xl" /> Filter
@@ -176,7 +164,7 @@ function ProductShop() {
             </div>
           </div>
         </article>
-        <main className="mt-5 m-auto grid grid-cols-1 xl:grid-cols-2 justify-center gap-4">
+        <main className="mt-5 pb-10 m-auto grid grid-cols-1 xl:grid-cols-2 justify-center gap-4">
           <Inventario />
         </main>
       </section>

@@ -9,7 +9,7 @@ function SocialMedia(props) {
       >
         {(props.text && props.text) || `Do you like what you're seeing?`}
       </h2>
-      <div className="conteiner-social">
+      <div className="flex flex-col justify-around gap-5 mt-5 m-auto text-center w-8/12 sm:flex-row flex-wrap">
         <Buton src="/assets/icons/facebook-circle-fill.png" name="Compartir" />
         <Buton src="/assets/icons/chat.svg" name="Twitter" />
         <Buton src="/assets/icons/mail-line.svg" name="E-mail" />

@@ -4,9 +4,14 @@ import Link from "next/link";
 
 function ProducTrend(props) {
   return (
-    <div className="cursor-pointer product-trending flex flex-col justify-between w-30 sm:w-36 md:w-44 lg:w-54 xl:w-64">
-      <div className="h-52 flex items-center img-product-trending">
-        {props.image && props.image[0]}
+    <div className="cursor-pointer product-trending flex flex-col justify-between w-30 md:w-48 lg:w-54 xl:w-64">
+      <div className="h-max flex items-center img-product-trending">
+        {props.image ? (
+          props.image.length <= 0 ? (
+            <img src="/assets/no-available.webp" />
+          ) : (props.image[0])
+         ) : <Skeleton className="w-full h-56" />
+        }
       </div>
       <div className="datos-product gap-3">
         <div>

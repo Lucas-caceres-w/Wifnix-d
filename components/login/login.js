@@ -26,7 +26,7 @@ function IniciarSesion() {
   //Manejan los errores y estados del registro
   const [userRegister, setUserRegister] = useState("");
   const [error, setError] = useState("");
-  const [password, setPassword] = useState('');
+  const [password, setPassword] = useState("");
 
   let form = useRef();
   let problems = useRef();
@@ -200,12 +200,12 @@ function IniciarSesion() {
                 type={"email"}
               />
               <input
-                className="continue cursor-pointer"
+                className="continue bg-blue-500 hover:bg-blue-600 cursor-pointer"
                 type={"submit"}
                 value="Continuar"
               />
               <Link href={"/help"}>
-                <p className="text-xs mt-4 text-blue-500">¿Necesitas ayuda?</p>
+                <p className="text-xs font-normal mt-4 text-blue-500">¿Necesitas ayuda?</p>
               </Link>
             </form>
           ) : (
@@ -314,7 +314,7 @@ function IniciarSesion() {
                   />
                   <div className="butons-login">
                     <input
-                      className="continue cursor-pointer hover:bg-blue-600 transition-colors"
+                      className="continue cursor-pointer bg-blue-500 hover:bg-blue-600 transition-colors"
                       type={"submit"}
                       value="Continuar"
                     />
@@ -350,7 +350,7 @@ function IniciarSesion() {
                       type={"submit"}
                       value="Iniciar sesiòn"
                     />
-                    <button className="text-blue-500">
+                    <button className="text-blue-500 font-medium">
                       ¿Olvidaste tu contraseña?
                     </button>
                   </div>

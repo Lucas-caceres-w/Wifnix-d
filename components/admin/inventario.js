@@ -1,9 +1,9 @@
-import { Skeleton, Button, TextField } from "@mui/material";
-import { Delete, Edit, FileUpload } from "@mui/icons-material";
+import { Skeleton, Button } from "@mui/material";
+import { Delete, Edit } from "@mui/icons-material";
 
 function Inventario(props) {
   return props.dataBase ? (
-    <tbody className="w-full bg-gray-200">
+    <tbody className="w-full h-full overflowy-auto bg-gray-200">
       {props.dataBase?.map((e) => {
         let detalles = e.details.split(",").map((e, index) => {
           return (
@@ -38,7 +38,7 @@ function Inventario(props) {
             <td className="border border-slate-400 p-2 text-left w-full text-slate-800 font-semibold text-xs">
               {e.images && <p>Hay {e.images.length} imagenes</p>}
             </td>
-            <td className="flex flex-col gap-1">
+            <td className="flex flex-col gap-1 p-2">
               <Button
                 className="bg-blue-500"
                 startIcon={<Edit />}

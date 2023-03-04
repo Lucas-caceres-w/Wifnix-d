@@ -223,7 +223,7 @@ function Form() {
           onSubmit={UploadProduct}
         >
           <p className="text-slate-800 font-semibold text-xl">Add product:</p>
-          <div className="m-auto flex flex-row xl:flex-col items-start flex-wrap justify-around gap-y-5">
+          <div className="m-auto flex flex-row xl:flex-col items-center flex-wrap justify-around gap-y-5">
             <div className="text-left">
               <TextField
                 multiline
@@ -322,9 +322,9 @@ function Form() {
           </Alert>
         )}
       </div>
-      <article className="scrollbar w-full xl:w-3/4 h-96 overflow-y-scroll bg-gray-200 rounded shadow-md shadow-slate-500">
+      <article className="scrollbar w-full xl:w-3/4 h-[550px] overflow-y-scroll bg-gray-200 rounded shadow-md shadow-slate-500">
         <table className="rounded w-full table table-auto lg:table-fixed border-collapse border border-slate-500">
-          <thead className="w-full bg-slate-400">
+          <thead className="w-full h-16 sticky top-0 z-10 p-4 bg-slate-400">
             <tr className="">
               <th className="border border-slate-500 p-2 w-full text-left text-lg font-bold text-slate-900">
                 Producto:
