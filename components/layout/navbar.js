@@ -137,7 +137,7 @@ function Navbar() {
       </section>
       <div
         ref={menu}
-        className="absolute bg-slate-50 w-54 h-screen z-50 px-4 -translate-x-72 transition-all"
+        className="absolute top-0 bg-slate-50 w-54 h-screen z-50 px-4 -translate-x-72 transition-all"
       >
         <Close
           onClick={() => CloseMenu()}
@@ -193,7 +193,7 @@ function Navbar() {
       <div
         ref={bgMenu}
         onClick={() => CloseMenu()}
-        className="w-full z-40 invisible absolute bg-slate-900 bg-opacity-50 h-screen"
+        className="w-full top-0 z-40 invisible absolute bg-slate-900 bg-opacity-50 h-screen"
       ></div>
     </>
   );
