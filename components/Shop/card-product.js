@@ -7,14 +7,24 @@ function CardProduct(props) {
       id={props.key}
       className="h-max lg:h-56 w-full lg:w-[500px] items-center p-2 card-product flex flex-col lg:flex-row justify-around rounded shadow-md shadow-slate-300"
     >
-      {props.image.length > 0 ? props.image[0] : <img className="w-6/12 h-full" src="/assets/no-available.webp" />}
+      {props.image.length > 0 ? (
+        props.image[0]
+      ) : (
+        <img className="w-6/12 h-full" src="/assets/no-available.webp" />
+      )}
       <div className="flex flex-col justify-content-evenly w-full gap-1 text-left ml-2">
         <div className="relative">
           <h2 className="text-2xl font-semibold">{props.product}</h2>
           <p className="absolute -bottom-7 left-0">{props.stock}⭐⭐⭐⭐</p>
-          <p className="absolute -bottom-12 left-0 text-green-500 font-semibold">
-            In stock
-          </p>
+          {props.stock > 0 ? (
+            <p className="absolute -bottom-12 left-0 text-green-500 font-semibold">
+              In stock
+            </p>
+          ) : (
+            <p className="absolute -bottom-12 left-0 text-red-500 font-semibold">
+              No stock
+            </p>
+          )}
         </div>
         <div className="flex flex-row justify-between">
           <div>
@@ -28,7 +38,10 @@ function CardProduct(props) {
               <sup className="text-xs underline font-medium">99</sup>
             </p>
             <p className="text-xs font-medium text-blue-500">TOP SELLER</p>
-            <Link className="bg-blue-300 p-2 rounded-full hover:bg-blue-400" href={`/tienda/${props.id}`}>
+            <Link
+              className="bg-blue-300 p-2 rounded-md hover:bg-blue-400"
+              href={`/tienda/${props.id}`}
+            >
               <ShoppingCart />
             </Link>
           </div>

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import CardProduct from "./card-product";
 import { GridView, HomeOutlined, Tune, UnfoldMore } from "@mui/icons-material";
 import Link from "next/link";
@@ -10,6 +10,8 @@ import CatShop from "./categorieShop";
 function ProductShop() {
   const [dataBase, setDataBase] = useState();
   const [categoria, setCategoria] = useState();
+  const [filter, setFilter] = useState(true);
+  const filtros = useRef();
   const router = useRouter();
   const categorie = router.query;
 
@@ -57,6 +59,28 @@ function ProductShop() {
     );
   };
 
+  const OcultarFilter = () => {
+    filtros.current.style.transform = "translateX(-200px)";
+    setTimeout(() => {
+      filtros.current.style.display = "none";
+    }, 450);
+    setTimeout(() => {
+      filtros.current.style.width = "0";
+    }, 500);
+    setFilter(false);
+  };
+
+  const MostrarFilter = () => {
+    setTimeout(() => {
+      filtros.current.style.display = "block";
+    }, 450);
+    filtros.current.style.width = "max-content";
+    setTimeout(() => {
+      filtros.current.style.transform = "translateX(0)";
+    }, 500);
+    setFilter(true);
+  };
+
   return (
     <>
       <div className="hero-products">
@@ -68,7 +92,10 @@ function ProductShop() {
         <div className="flex flex-col gap-4 pt-10 pb-2">
           <CatShop />
           <div className="pt-10 filter-between flex flex-row justify-between">
-            <p className="text-footer flex flex-row items-center">
+            <p
+              onClick={() => (filter ? OcultarFilter() : MostrarFilter())}
+              className="text-footer flex flex-row items-center p-2 cursor-pointer rounded-full hover:bg-blue-500"
+            >
               <Tune className="text-black text-3xl" /> Filter
             </p>
             <p className="text-footer flex flex-row items-center">
@@ -81,7 +108,7 @@ function ProductShop() {
       </article>
       <div className="separador"></div>
       <section className="flex flex-row gap-5">
-        <article className="filtros my-5 gap-4">
+        <article ref={filtros} className="transition-all filtros my-5 gap-4">
           <div className="flex flex-col gap-2">
             <h3 className="text-footer">Category</h3>
             <div className="check-filter">
@@ -164,7 +191,7 @@ function ProductShop() {
             </div>
           </div>
         </article>
-        <main className="mt-5 pb-10 m-auto grid grid-cols-1 xl:grid-cols-2 justify-center gap-4">
+        <main className="transition-all mt-5 pb-10 m-auto grid grid-cols-1 xl:grid-cols-2 justify-center gap-4">
           <Inventario />
         </main>
       </section>

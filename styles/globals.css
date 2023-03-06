@@ -23,6 +23,11 @@ body {
   color: var(--text-black);
 }
 
+.inactive {
+  background-color: #888;
+  pointer-events: none;
+}
+
 body::-webkit-scrollbar {
   width: 12px;
 }

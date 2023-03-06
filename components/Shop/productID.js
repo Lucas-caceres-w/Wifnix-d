@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Details from "./detailsID";
 import Packs from "./oferts-kits";
 import SocialMedia from "../layout/socialmedia";
@@ -6,15 +6,41 @@ import Footer from "../layout/footer";
 import MuestraProducts from "../layout/getproduct";
 import { Skeleton } from "@mui/material";
 import Link from "next/link";
+import { ArrowBack, ArrowForward } from "@mui/icons-material";
 
 function ProductId(props) {
   const [cantidad, setCantidad] = useState(1);
+  const [currentImage, setCurrentImage] = useState(0);
+  const [active, setActive] = useState(Boolean);
+
+  const prevSlide = () => {
+    if (currentImage === 0) {
+      setCurrentImage(props.image.length - 1);
+    } else {
+      setCurrentImage(currentImage - 1);
+    }
+  };
+
+  const nextSlide = () => {
+    if (currentImage === props.image.length - 1) {
+      setCurrentImage(0);
+    } else {
+      setCurrentImage(currentImage + 1);
+    }
+  };
 
   const SumarCantidad = (e) => {
     setCantidad(e.target.value);
   };
 
-  let images = props.image;
+  useEffect(() => {
+    if (currentImage === 0) {
+      setActive(true);
+    } else if (currentImage === props.image.length - 1) {
+      setActive(false);
+    }
+  }, [currentImage]);
+
   return (
     <>
       <section className="py-12 flex flex-col lg:flex-row justify-evenly">
@@ -36,17 +62,57 @@ function ProductId(props) {
             </div>
           </div>
           {props.image ? (
-            <img className="w-[600px]" src={images[0]} />
+            <div className="w-full h-[550px] flex flex-col justify-around">
+              <img
+                className="w-full h-full m-auto object-contain"
+                src={props.image[currentImage]}
+                id={currentImage}
+                alt="image"
+              />
+              <div className="flex flex-row gap-2 m-auto items-center">
+                <button
+                  disabled={active === true && true}
+                  className={
+                    active === false
+                      ? "text-white grid place-items-center bg-blue-400 text-4xl cursor-pointer hover:bg-blue-500 w-14 h-14 font-bold rounded-full"
+                      : "text-white grid place-items-center bg-gray-400 text-4xl w-14 h-14 font-bold rounded-full"
+                  }
+                  onClick={() => prevSlide()}
+                >
+                  <ArrowBack fontSize="large" />
+                </button>
+                {props.image.map((e, index) => {
+                  return (
+                    <div
+                      className={
+                        currentImage === index
+                          ? "w-16 h-16 shadow-md shadow-slate-800 object-contain overflow-hidden"
+                          : "w-14 h-14 shadow-sm shadow-slate-800 object-contain overflow-hidden"
+                      }
+                      key={index}
+                    >
+                      <img id={index} className="w-full" src={e} alt="image" />
+                    </div>
+                  );
+                })}
+                <button
+                  disabled={!active === true && true}
+                  className={
+                    active === true
+                      ? "text-white grid place-items-center bg-blue-400 text-4xl cursor-pointer hover:bg-blue-500 w-14 h-14 font-bold rounded-full"
+                      : "text-white grid place-items-center bg-gray-400 text-4xl w-14 h-14 font-bold rounded-full"
+                  }
+                  onClick={() => nextSlide()}
+                >
+                  <ArrowForward fontSize="large" />
+                </button>
+              </div>
+            </div>
           ) : (
-            <div className="w-full">
-              <Skeleton className="w-10/12 m-auto h-[450px]" />
+            <div className="w-6/12">
+              <Skeleton className="w-full m-auto h-[450px]" />
             </div>
           )}
-          <div className="flex flex-row w-2/12 m-auto">
-            {images?.map((image, index) => (
-              <img src={image} key={index} />
-            ))}
-          </div>
         </article>
         <div className="w-11/12 md:w-5/12 m-auto">
           <div className="text-left mt-24">
@@ -84,7 +150,7 @@ function ProductId(props) {
             />
             <Link
               href={"/carro"}
-              className="p-4 w-48 text-center font-semibold text-white bg-blue-600 rounded-full"
+              className="p-4 w-48 text-center grid place-items-center font-semibold text-white bg-blue-500 hover:bg-blue-600 rounded-full"
             >
               Add to basket
             </Link>
