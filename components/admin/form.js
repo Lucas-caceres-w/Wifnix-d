@@ -338,7 +338,7 @@ function Form() {
               </Select>
             </FormControl>
             <div className="container-input flex flex-row items-center cursor-pointer">
-              <label className="bg-sky-500 cursor-pointer" htmlFor="images">
+              <label className="bg-sky-500 cursor-pointer text-xs w-2/4" htmlFor="images">
                 Select files
               </label>
               <input
@@ -348,7 +348,7 @@ function Form() {
                 type={"file"}
                 multiple
               />
-              <span>
+              <span className="w-2/4">
                 {file.length <= 0
                   ? "No hay archivos"
                   : file.length === 1
@@ -356,14 +356,12 @@ function Form() {
                   : `Hay ${file.length} archivos`}
               </span>
             </div>
-            <div className="relative m-auto">
-              <button
-                type="submit"
-                className="bg-sky-500 rounded-full text-white p-2 px-4 hover:bg-sky-600 mt-5 mb-2"
-              >
-                Enviar
-              </button>
-            </div>
+            <button
+              type="submit"
+              className="bg-sky-500 rounded-full text-white p-2 px-4 hover:bg-sky-600 mt-5 mb-2"
+            >
+              Enviar
+            </button>
           </div>
         </form>
         {updateError === true && (
