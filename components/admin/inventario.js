@@ -1,4 +1,3 @@
-import { Skeleton, Button } from "@mui/material";
 import { Delete, Edit } from "@mui/icons-material";
 import SkeletonAdmin from "./skeleton";
 
@@ -40,23 +39,20 @@ function Inventario(props) {
               {e.images && <p>Hay {e.images.length} imagenes</p>}
             </td>
             <td className="flex flex-col gap-1 p-2">
-              <Button
-                className="bg-sky-500 hover:bg-sky-600 rounded-full"
-                startIcon={<Edit />}
+              <button
+                className="bg-sky-500 hover:bg-sky-600 rounded-full text-white px-4 py-2"
                 onClick={() => props.UpdateProduct(e.id)}
-                variant="contained"
               >
+                <Edit />
                 Editar
-              </Button>
-              <Button
-                className="bg-red-600 hover:bg-red-700 rounded-full"
-                startIcon={<Delete />}
-                variant="contained"
-                color="error"
+              </button>
+              <button
+                className="bg-red-600 hover:bg-red-700 rounded-full text-white px-4 py-2"
                 onClick={() => props.ConfirmDelete(e.id)}
               >
+                <Delete />
                 Eliminar
-              </Button>
+              </button>
             </td>
           </tr>
         );

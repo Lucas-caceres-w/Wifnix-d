@@ -13,7 +13,7 @@ function MuestraProducts() {
     fetchPost();
   }, []);
   return (
-    <article className="grid grid-cols-3 gap-2 md:grid-cols-4 lg:grid-cols-5 justify-around w-full lg:w-11/12 justify-items-center py-4 m-auto">
+    <article className="grid grid-cols-3 gap-2 md:grid-cols-4 lg:grid-cols-5 justify-around w-full lg:w-11/12 justify-items-center py-5 m-auto">
       {product ? (
         product.slice(0, 5).map((e) => {
           const image64 = e.images.map((e, index) => {

@@ -320,25 +320,6 @@ function Form() {
                 value={product.quantity}
               />
             </div>
-            <div className="container-input flex flex-row items-center">
-              <label className="bg-sky-500" htmlFor="images">
-                Select files
-              </label>
-              <input
-                id="file"
-                name="images"
-                onChange={(e) => FilesUp(e.target.files)}
-                type={"file"}
-                multiple
-              />
-              <span>
-                {file.length <= 0
-                  ? "No hay archivos"
-                  : file.length === 1
-                  ? file[0]
-                  : `Hay ${file.length} archivos`}
-              </span>
-            </div>
             <FormControl className="w-full" sx={{ m: 1, minWidth: 80 }}>
               <InputLabel id="select">Category</InputLabel>
               <Select
@@ -356,14 +337,32 @@ function Form() {
                 <MenuItem value="Recorders">Recorders</MenuItem>
               </Select>
             </FormControl>
+            <div className="container-input flex flex-row items-center cursor-pointer">
+              <label className="bg-sky-500 cursor-pointer" htmlFor="images">
+                Select files
+              </label>
+              <input
+                id="file"
+                name="images"
+                onChange={(e) => FilesUp(e.target.files)}
+                type={"file"}
+                multiple
+              />
+              <span>
+                {file.length <= 0
+                  ? "No hay archivos"
+                  : file.length === 1
+                  ? file[0]
+                  : `Hay ${file.length} archivos`}
+              </span>
+            </div>
             <div className="relative m-auto">
-              <Button
+              <button
                 type="submit"
-                className="bg-sky-500 rounded-full hover:bg-sky-600 mt-5 mb-2"
-                variant="contained"
+                className="bg-sky-500 rounded-full text-white p-2 px-4 hover:bg-sky-600 mt-5 mb-2"
               >
                 Enviar
-              </Button>
+              </button>
             </div>
           </div>
         </form>
