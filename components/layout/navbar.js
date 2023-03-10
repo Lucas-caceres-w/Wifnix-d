@@ -8,16 +8,19 @@ import {
   Menu,
   ShoppingCart,
 } from "@mui/icons-material";
-import { IconButton } from "@mui/material";
+import { Badge, IconButton, Tooltip, Zoom } from "@mui/material";
 import axios from "axios";
 import Link from "next/link";
+import { useContext } from "react";
 import { useEffect, useRef, useState } from "react";
+import { LocalStorageContext } from "../Context";
 
 function Navbar() {
   let menu = useRef();
   let bgMenu = useRef();
 
   const [user, setUser] = useState();
+  const { count } = useContext(LocalStorageContext);
 
   const OpenMenu = () => {
     menu.current.style.transform = "translateX(0)";
@@ -60,6 +63,7 @@ function Navbar() {
         //console.log(err);
       }
     };
+    //console.log(count);
     getUser();
   }, []);
 
@@ -87,32 +91,74 @@ function Navbar() {
         <div className="profile-conteiner items-center">
           <Link className="flex flex-row items-center" href="#">
             <p>ES - $</p>
-            <Language />
+            <Tooltip
+              title="Languaje"
+              placement="bottom"
+              TransitionComponent={Zoom}
+            >
+              <Language />
+            </Tooltip>
           </Link>
           {user ? (
-            <Link href="/profile">
-              <AccountCircle />
-            </Link>
+            <Tooltip
+              title="Perfil"
+              placement="bottom"
+              TransitionComponent={Zoom}
+            >
+              <Link href="/profile">
+                <AccountCircle />
+              </Link>
+            </Tooltip>
           ) : (
-            <Link href="/login">
-              <AccountCircle />
-            </Link>
+            <Tooltip
+              title="Login"
+              placement="bottom"
+              TransitionComponent={Zoom}
+            >
+              <Link href="/login">
+                <AccountCircle />
+              </Link>
+            </Tooltip>
           )}
           <Link href="#">
             <Favorite />
           </Link>
-          <Link href="/tienda">
-            <ShoppingCart />
-          </Link>
+          <Badge
+            badgeContent={count}
+            showZero
+            color="primary"
+          >
+            <Tooltip
+              title="Basket"
+              placement="bottom"
+              TransitionComponent={Zoom}
+            >
+              <Link href="/carro">
+                <ShoppingCart />
+              </Link>
+            </Tooltip>
+          </Badge>
           {user && user.rol === "admin" ? (
-            <Link href={"/admin"}>
-              <Dashboard />
-            </Link>
+            <Tooltip
+              title="Dashboard"
+              placement="bottom"
+              TransitionComponent={Zoom}
+            >
+              <Link href={"/admin"}>
+                <Dashboard />
+              </Link>
+            </Tooltip>
           ) : null}
           {user && user ? (
-            <IconButton onClick={() => Exit()}>
-              <Logout />
-            </IconButton>
+            <Tooltip
+              title="Logout"
+              placement="bottom"
+              TransitionComponent={Zoom}
+            >
+              <IconButton onClick={() => Exit()}>
+                <Logout />
+              </IconButton>
+            </Tooltip>
           ) : null}
           <div className="block md:hidden cursor-pointer">
             <IconButton onClick={() => OpenMenu()}>

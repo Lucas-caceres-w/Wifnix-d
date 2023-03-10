@@ -1,25 +1,77 @@
 import { ArrowForward, Close, LocalShipping } from "@mui/icons-material";
+import { IconButton } from "@mui/material";
+import { useContext } from "react";
+import { useState } from "react";
+import { useEffect } from "react";
+import { LocalStorageContext } from "../Context";
 
 function CartItems() {
+  const [products, setProducts] = useState(() => {
+    const json =
+      typeof localStorage !== "undefined"
+        ? localStorage.getItem("product")
+        : undefined;
+    return json ? JSON.parse(json) : [];
+  });
+  const { setCount } = useContext(LocalStorageContext);
+
+  const removeProduct = (id) => {
+    const updatedProducts = products.filter((p) => p.id !== id);
+    setProducts(updatedProducts);
+    localStorage.setItem("product", JSON.stringify(updatedProducts));
+    
+    const countLocal = JSON.parse(localStorage.getItem("product"));
+    setCount(countLocal.length);
+  };
+
+  useEffect(() => {
+    const ProductCart = () => {
+      let json = localStorage.getItem("product");
+      setProducts(JSON.parse(json));
+    };
+    ProductCart();
+  }, []);
+
   return (
     <div className="w-10/12 m-auto mt-12 mb-12">
       <h2 className="font-bold text-5xl">You Shopping Basket</h2>
       <section className="mt-24 flex flex-row justify-center gap-12">
         <div className="flex flex-col gap-2 items-end">
-          <div className="px-4 text-lg font-bold flex flex-row items-center justify-between border border-slate-300 rounded-3xl">
-            <img className="w-48" src="/assets/camara.png" />
-            <p>TurboHD 1080p Lite Kit</p>
-            <div className="flex flex-row items-center">
-              <p>
-                US$297<sup>99</sup>
-              </p>
-              <input
-                type={"number"}
-                value="1"
-                className="text-center w-16 py-3 border border-slate-500 rounded-2xl"
-              />
-            </div>
-            <Close />
+          <div className="w-full px-4 text-lg font-bold flex flex-col flex-wrap items-center border border-slate-300 rounded-3xl">
+            {products.length > 0 ? (
+              products.map((e) => {
+                return (
+                  <div
+                    key={e.id}
+                    className="flex flex-col lg:flex-row w-full gap-2 items-center justify-between border-b border-b-gray-400"
+                  >
+                    <img className="w-48" src={e.image && e.image[0]} />
+                    <div className="flex flex-col lg:flex-row flex-wrap gap-2 justify-around items-center">
+                      <p className="text-xs sm:text-sm md:text-base">
+                        {e.product && e.product}
+                      </p>
+                      <p className="text-xs sm:text-sm md:text-base">
+                        US${e.price && e.price}
+                        <sup>99</sup>
+                      </p>
+                      <input
+                        type={"number"}
+                        value="1"
+                        className="text-center w-16 py-3 border border-slate-500 rounded-2xl"
+                      />
+                    </div>
+                    <IconButton
+                      onClick={() => removeProduct(e.id)}
+                      className="bg-red-300 hover:bg-red-400"
+                    >
+                      <Close />
+                    </IconButton>
+                  </div>
+                );
+              })
+            ) : (
+              <p>No se encuentran productos</p>
+            )}
           </div>
           <div className="bg-gray-100 py-8 flex flex-row justify-around rounded-md p-5 text-left w-9/12">
             <div className="flex flex-col gap-4 font-semibold text-gray-500">

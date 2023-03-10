@@ -1,17 +1,16 @@
 import { useEffect, useRef, useState } from "react";
-import Details from "./detailsID";
-import Packs from "./oferts-kits";
-import SocialMedia from "../layout/socialmedia";
-import Footer from "../layout/footer";
-import MuestraProducts from "../layout/getproduct";
-import { Skeleton } from "@mui/material";
-import Link from "next/link";
+import { Alert, Skeleton } from "@mui/material";
 import { ArrowBack, ArrowForward } from "@mui/icons-material";
+import Image from "next/image";
+import { useContext } from "react";
+import { LocalStorageContext } from "../Context";
 
 function ProductId(props) {
   const [cantidad, setCantidad] = useState(1);
   const [currentImage, setCurrentImage] = useState(0);
   const [active, setActive] = useState(Boolean);
+  const [carrito, setCarrito] = useState([]);
+  const { setCount } = useContext(LocalStorageContext);
 
   const prevSlide = () => {
     if (currentImage === 0) {
@@ -33,7 +32,23 @@ function ProductId(props) {
     setCantidad(e.target.value);
   };
 
+  const BuyProduct = () => {
+    setCarrito([...carrito, props]);
+    localStorage.setItem("product", JSON.stringify([...carrito, props]));
+    const countLocal = JSON.parse(localStorage.getItem("product"));
+    setCount(countLocal.length);
+    props.setAlert(true);
+    setTimeout(() => {
+      props.setAlert(false);
+    }, 1500);
+    clearTimeout();
+  };
+
   useEffect(() => {
+    const carritoGuardado = JSON.parse(localStorage.getItem("product"));
+    if (carritoGuardado) {
+      setCarrito(carritoGuardado);
+    }
     if (currentImage === 0) {
       setActive(true);
     } else if (currentImage === props.image.length - 1) {
@@ -63,7 +78,9 @@ function ProductId(props) {
           </div>
           {props.image ? (
             <div className="w-full h-[550px] flex flex-col justify-around">
-              <img
+              <Image
+                width={100}
+                height={100}
                 className="w-full h-full m-auto object-contain"
                 src={props.image[currentImage]}
                 id={currentImage}
@@ -91,7 +108,14 @@ function ProductId(props) {
                       }
                       key={index}
                     >
-                      <img id={index} className="w-full" src={e} alt="image" />
+                      <Image
+                        width={100}
+                        height={100}
+                        id={index}
+                        className="w-full"
+                        src={e}
+                        alt="image"
+                      />
                     </div>
                   );
                 })}
@@ -148,12 +172,12 @@ function ProductId(props) {
               type={"number"}
               onChange={(e) => SumarCantidad(e)}
             />
-            <Link
-              href={"/carro"}
+            <button
+              onClick={() => BuyProduct()}
               className="p-4 w-48 text-center grid place-items-center font-semibold text-white bg-blue-500 hover:bg-blue-600 rounded-full"
             >
               Add to basket
-            </Link>
+            </button>
           </div>
           <article className="w-11/12 mt-8">
             <table className="w-10/12 table border-separate border-spacing-2">
@@ -196,21 +220,6 @@ function ProductId(props) {
           </article>
         </div>
       </section>
-      <span className="separador"></span>
-      <Details />
-      <span className="separador"></span>
-      <Packs />
-      <span className="separador"></span>
-      <h2 className="title-section text-3xl md:text-5xl py-2">
-        Productos recomendados
-      </h2>
-      <MuestraProducts />
-      <span className="separador"></span>
-      <h2 className="title-section text-3xl md:text-5xl py-2">Comparar</h2>
-      <MuestraProducts />
-      <span className="separador"></span>
-      <SocialMedia text={"You have doubts?"} />
-      <Footer />
     </>
   );
 }

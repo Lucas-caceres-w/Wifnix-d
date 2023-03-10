@@ -12,6 +12,7 @@ function CarroItems() {
     <div>
       <Head>
         <title>Productos en carro</title>
+        <link rel="icon" href="/assets/LogoWifnix.svg" />
       </Head>
       <NavBar />
       <CartItems />

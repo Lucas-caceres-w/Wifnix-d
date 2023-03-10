@@ -16,12 +16,12 @@ function NavAdmin() {
   };
 
   return (
-    <div className="w-12 h-vh bg-slate-700 relative">
+    <div className="w-16 h-vh bg-neutral-600 relative">
       <div className="flex flex-col items-center justify-around gap-4 mt-3">
         <Tooltip TransitionComponent={Zoom} title="Home" placement="right">
           <IconButton aria-label="Home">
             <Link href={"/"}>
-              <Home className="text-slate-400 hover:text-slate-300" />
+              <Home className="text-zinc-200 hover:text-slate-300" />
             </Link>
           </IconButton>
         </Tooltip>
@@ -31,17 +31,17 @@ function NavAdmin() {
           placement="right"
         >
           <IconButton aria-label="Inventario">
-            <Inventory2 className="text-slate-400 hover:text-slate-300" />
+            <Inventory2 className="text-zinc-200 hover:text-slate-300" />
           </IconButton>
         </Tooltip>
         <Tooltip TransitionComponent={Zoom} title="Compras" placement="right">
           <IconButton aria-label="Pedidos">
-            <LocalShipping className="text-slate-400 hover:text-slate-300" />
+            <LocalShipping className="text-zinc-200 hover:text-slate-300" />
           </IconButton>
         </Tooltip>
         <Tooltip TransitionComponent={Zoom} title="Exit" placement="right">
           <IconButton onClick={() => Exit()} aria-label="Salir">
-            <Logout className="text-slate-400 hover:text-slate-300" />
+            <Logout className="text-zinc-200 hover:text-slate-300" />
           </IconButton>
         </Tooltip>
       </div>

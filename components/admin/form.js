@@ -2,6 +2,9 @@ import { PublishOutlined } from "@mui/icons-material";
 import {
   Alert,
   Button,
+  Dialog,
+  DialogActions,
+  DialogTitle,
   FormControl,
   InputLabel,
   MenuItem,
@@ -31,10 +34,28 @@ function Form() {
   const [success, setSuccess] = useState(false);
   const [del, setDel] = useState(false);
   const [error, setError] = useState(false);
+  const [ID, setID] = useState(null);
+  const [openDialog, setOpenDialog] = useState(false);
   const [dataBase, setDataBase] = useState();
   const [select, setSelect] = useState("");
   const [update, setUpdate] = useState(InicialState);
   const [product, setProduct] = useState(InicialState);
+  const [file, setFile] = useState([]);
+
+  const handleClickOpen = (id) => {
+    setOpenDialog(true);
+    setID(id);
+  };
+
+  const handleClose = () => {
+    setOpenDialog(false);
+    setID(null);
+  };
+
+  const handleDelete = async (id) => {
+    handleClose();
+    await DeleteProduct(id);
+  };
 
   const FilesUp = (e) => {
     const imagesArray = [];
@@ -54,6 +75,10 @@ function Form() {
         }));
       };
     });
+
+    const filenames = Array.from(e).map((file) => file.name);
+    console.log(filenames);
+    setFile(filenames);
   };
 
   const ShowProducts = async () => {
@@ -216,76 +241,108 @@ function Form() {
           </Alert>
         </Snackbar>
       )}
+
+      <Dialog
+        open={openDialog}
+        onClose={handleClose}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <DialogTitle id="alert-dialog-title">
+          Esta seguro de eliminar el producto?
+        </DialogTitle>
+        <DialogActions>
+          <Button onClick={() => handleDelete(ID)}>Aceptar</Button>
+          <Button onClick={handleClose}>Cancelar</Button>
+        </DialogActions>
+      </Dialog>
+
       <div className="w-full xl:w-1/4 relative">
         <form
-          className="w-full flex flex-col p-4 bg-gray-200 rounded shadow-md shadow-slate-500"
+          className="w-full flex flex-col p-4 bg-gray-100 rounded-xl shadow-md shadow-slate-500"
           ref={form}
           onSubmit={UploadProduct}
         >
-          <p className="text-slate-800 font-semibold text-xl">Add product:</p>
-          <div className="m-auto flex flex-row xl:flex-col items-center flex-wrap justify-around gap-y-5">
-            <div className="text-left">
+          <p className="color-blue text-center py-6 font-bold text-xl">
+            Add product:
+          </p>
+          <div className="w-10/12 m-auto flex flex-row xl:flex-col items-center flex-wrap justify-around gap-y-5">
+            <div className="text-left w-full">
               <TextField
+                className="w-full"
                 multiline
                 required={true}
                 onChange={HandleChange}
                 label="Product:"
                 name="product"
                 type={"text"}
-                variant="standard"
+                variant="outlined"
                 value={product.product}
               />
             </div>
-            <div className="mt-2 relative">
+            <div className="relative w-full">
               <TextField
+                className="w-full"
                 multiline
                 required={true}
                 onChange={HandleChange}
                 label="Details:"
                 name="details"
                 type={"text"}
-                variant="standard"
+                variant="outlined"
                 value={product.details}
               />
               <p className="absolute -bottom-5 text-xs font-base">
                 (Separar con ( , ) cada detalle)
               </p>
             </div>
-            <div className="">
+            <div className="w-full">
               <TextField
+                className="w-full"
                 required={true}
                 onChange={HandleChange}
                 label="Price:"
                 name="price"
                 type="number"
-                variant="standard"
+                variant="outlined"
                 value={product.price}
               />
             </div>
-            <div className="">
+            <div className="w-full">
               <TextField
+                className="w-full"
                 required={true}
                 onChange={HandleChange}
                 label="Quantity:"
                 name="quantity"
                 type="number"
-                variant="standard"
+                variant="outlined"
                 value={product.quantity}
               />
             </div>
-            <div className="w-full">
+            <div className="container-input flex flex-row items-center">
+              <label className="bg-sky-500" htmlFor="images">
+                Select files
+              </label>
               <input
-                className="w-full"
+                id="file"
                 name="images"
                 onChange={(e) => FilesUp(e.target.files)}
                 type={"file"}
                 multiple
               />
+              <span>
+                {file.length <= 0
+                  ? "No hay archivos"
+                  : file.length === 1
+                  ? file[0]
+                  : `Hay ${file.length} archivos`}
+              </span>
             </div>
-            <FormControl sx={{ m: 1, minWidth: 80 }}>
+            <FormControl className="w-full" sx={{ m: 1, minWidth: 80 }}>
               <InputLabel id="select">Category</InputLabel>
               <Select
-                className="w-44 text-slate-900"
+                className="w-full text-slate-900"
                 labelId="select"
                 id="select"
                 name="category"
@@ -302,10 +359,8 @@ function Form() {
             <div className="relative m-auto">
               <Button
                 type="submit"
-                className="bg-green-700 mt-5 mb-2"
+                className="bg-sky-500 rounded-full hover:bg-sky-600 mt-5 mb-2"
                 variant="contained"
-                color="success"
-                startIcon={<PublishOutlined />}
               >
                 Enviar
               </Button>
@@ -322,39 +377,23 @@ function Form() {
           </Alert>
         )}
       </div>
-      <article className="scrollbar w-full xl:w-3/4 h-[550px] overflow-y-scroll bg-gray-200 rounded shadow-md shadow-slate-500">
-        <table className="rounded w-full table table-auto lg:table-fixed border-collapse border border-slate-500">
-          <thead className="w-full h-16 sticky top-0 z-10 p-4 bg-slate-400">
-            <tr className="">
-              <th className="border border-slate-500 p-2 w-full text-left text-lg font-bold text-slate-900">
-                Producto:
-              </th>
-              <th className="border border-slate-500 p-2 w-full text-left text-lg font-bold text-slate-900">
-                ID:
-              </th>
-              <th className="border border-slate-500 p-2 w-full text-left text-lg font-bold text-slate-900">
-                Precios:
-              </th>
-              <th className="border border-slate-500 p-2 w-full text-left text-lg font-bold text-slate-900">
-                Stock:
-              </th>
-              <th className="border border-slate-500 p-2 w-full text-left text-lg font-bold text-slate-900">
-                Detalles:
-              </th>
-              <th className="border border-slate-500 p-2 w-full text-left text-lg font-bold text-slate-900">
-                Categoria:
-              </th>
-              <th className="border border-slate-500 p-2 w-full text-left text-lg font-bold text-slate-900">
-                Archivos:
-              </th>
-              <th className="w-full text-left text-lg font-bold text-slate-900">
-                &nbsp;
-              </th>
+      <article className="rounded-2xl scrollbar w-full xl:w-3/4 h-[550px] overflow-y-scroll bg-gray-100 shadow-md shadow-slate-500">
+        <table className="rounded-full w-full table table-auto lg:table-fixed border-collapse">
+          <thead className="w-full rounded-t-full h-16 sticky top-0 z-10 p-4 bg-sky-500">
+            <tr className="text-white text-center text-md font-semibold">
+              <th className="p-2 w-full">Producto:</th>
+              <th className="p-2 w-full">ID:</th>
+              <th className="p-2 w-full">Precios:</th>
+              <th className="p-2 w-full">Stock:</th>
+              <th className="p-2 w-full">Detalles:</th>
+              <th className="p-2 w-full">Categoria:</th>
+              <th className="p-2 w-full">Archivos:</th>
+              <th className="w-full">&nbsp;</th>
             </tr>
           </thead>
           <Inventario
             UpdateProduct={UpdateProduct}
-            DeleteProduct={DeleteProduct}
+            ConfirmDelete={handleClickOpen}
             dataBase={dataBase}
           />
         </table>

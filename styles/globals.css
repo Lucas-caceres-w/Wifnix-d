@@ -65,11 +65,42 @@ input[type='number']::-webkit-outer-spin-button {
   margin: 0;
 }
 
-.label {
-  font-size: 12px;
-  font-weight: bold;
-  color: #020a4f;
-  margin: 8px 0;
+.container-input {
+  position: relative;
+  width: 100%;
+  height: 40px;
+}
+
+.container-input label {
+  display: block;
+  margin-bottom: 8px;
+  padding: 10px 20px;
+  text-align: center;
+  border-radius: 16px;
+  color: #ededed;
+}
+
+.container-input:hover > label {
+  background-color: rgb(2 132 199);
+}
+
+.container-input input[type='file'] {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  right: 0;
+  font-size: 14px;
+  filter: alpha(opacity=0);
+  opacity: 0;
+  outline: none;
+  cursor: pointer;
+}
+
+.container-input span {
+  margin-left: 8px;
+  font-size: 14px;
+  color: #555;
 }
 
 .input {
@@ -749,7 +780,7 @@ input[type='number']::-webkit-outer-spin-button {
   list-style-type: disc;
 }
 
-.check-filter{
+.check-filter {
   display: flex;
   align-items: center;
   gap: 5px;
@@ -833,7 +864,7 @@ input[type='checkbox']:checked {
   position: relative;
   border-radius: 10px;
   background-color: var(--white-front);
-  transition: all .2s;
+  transition: all 0.2s;
 }
 
 .formulario-login .campos {
