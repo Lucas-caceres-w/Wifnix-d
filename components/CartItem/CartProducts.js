@@ -13,14 +13,21 @@ function CartItems() {
         : undefined;
     return json ? JSON.parse(json) : [];
   });
+  const [price, setPrice] = useState(0);
   const { setCount } = useContext(LocalStorageContext);
 
   const removeProduct = (id) => {
     const updatedProducts = products.filter((p) => p.id !== id);
-    setProducts(updatedProducts);
     localStorage.setItem("product", JSON.stringify(updatedProducts));
-    
+
     const countLocal = JSON.parse(localStorage.getItem("product"));
+    const total = updatedProducts.reduce((sum, product) => {
+      return sum + parseFloat(product.price);
+    }, 0);
+
+    // Actualiza el estado `products` , `price` `count`
+    setProducts(updatedProducts);
+    setPrice(total);
     setCount(countLocal.length);
   };
 
@@ -29,6 +36,14 @@ function CartItems() {
       let json = localStorage.getItem("product");
       setProducts(JSON.parse(json));
     };
+    console.log(products);
+    // Calcula la suma total de los precios de los productos
+    const total = products.reduce((sum, product) => {
+      return sum + parseFloat(product.price);
+    }, 0);
+
+    // Actualiza el estado de `price` con el precio total
+    setPrice(total);
     ProductCart();
   }, []);
 
@@ -90,7 +105,8 @@ function CartItems() {
           <div className="text-center rounded-lg items-center bg-gray-100 w-96 h-48 flex flex-col justify-evenly">
             <div>
               <p className="text-3xl font-bold">
-                Total $297<sup>99</sup>
+                Total ${price}
+                {price > 0 && <sup>99</sup>}
               </p>
               <p className="font-semibold text-gray-600">
                 The prices shown includes VAT.
